@@ -1,4 +1,4 @@
-# Basic Authentication
+# 03 Basic Authentication
 ![img](resource/03/Screen Shot 2563-09-20 at 14.34.50.png)
 1. Client calls get request to server.
 2. Server send 401 unauthorized because client has to send username and password to ser ver
