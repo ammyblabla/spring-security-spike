@@ -118,3 +118,39 @@ public class ApplicationSecurityConfig  extends WebSecurityConfigurerAdapter {
   }
 }
 ```
+
+## Permission based authentication
+```java
+@Getter
+@AllArgsConstructor
+public enum  ApplicationUserRole {
+  STUDENT(Sets.newHashSet()),
+  ADMIN(Sets.newHashSet(COURSE_READ, COURSE_WRITE, STUDENT_READ, STUDENT_WRITE)),
+// Create new role   
+  ADMINTRAINEE(Sets.newHashSet(COURSE_READ, STUDENT_READ));
+
+  private final Set<ApplicationUserPermission> permissions;
+}
+```
+
+```java
+// Create new user
+@Configuration
+@EnableWebSecurity
+@RequiredArgsConstructor
+public class ApplicationSecurityConfig  extends WebSecurityConfigurerAdapter {
+  private final PasswordEncoder passwordEncoder;
+  
+  @Override
+  @Bean
+  protected UserDetailsService userDetailsService() {
+    UserDetails tom = User.builder()
+        .username("tom")
+        .password(passwordEncoder.encode("password123"))
+        .roles(ADMINTRAINEE.name())
+        .build();
+
+    return new InMemoryUserDetailsManager(tom);
+  }
+}
+```
