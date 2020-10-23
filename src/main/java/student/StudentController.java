@@ -1,4 +1,4 @@
-package com.example.spikespringsecurity;
+package student;
 
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;

@@ -1,4 +1,4 @@
-package com.example.spikespringsecurity;
+package student;
 
 import lombok.Builder;
 import lombok.Data;
