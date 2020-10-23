@@ -93,3 +93,28 @@ public class ApplicationSecurityConfig  extends WebSecurityConfigurerAdapter {
   }
 }
 ```
+
+## Roles based authentication
+
+```java
+// Replace roles & permissions with enum
+// Replace roles & permissions with enum
+@Configuration
+@EnableWebSecurity
+@RequiredArgsConstructor
+public class ApplicationSecurityConfig  extends WebSecurityConfigurerAdapter {
+  private final PasswordEncoder passwordEncoder;
+  
+  @Override
+  protected void configure(HttpSecurity http) throws Exception {
+    http.authorizeRequests()
+        .antMatchers("/", "index", "/css/*", "/js/*").permitAll()
+// Allow only *STUDENT* for this endpoint
+        .antMatchers("/api/**").hasRole(STUDENT.name())
+        .anyRequest()
+        .authenticated()
+        .and()
+        .httpBasic();
+  }
+}
+```
