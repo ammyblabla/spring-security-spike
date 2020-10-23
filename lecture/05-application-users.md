@@ -1,6 +1,6 @@
 # 05 Application users
 - We start with username *user* and generated security password. Spring keep this in memory database. This will be disappeared when stop the server.
-- When we have many of user. We keep this on SQL database instead.
+- When we have many of user, we can keep this on SQL database instead.
 - One user have
   - Unique username
   - Encoded password (We don't want to keep raw password)

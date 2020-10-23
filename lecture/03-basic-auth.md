@@ -27,4 +27,4 @@ Basic auth from user
 ![img](resource/03/Screen Shot 2563-09-20 at 14.47.04.png)
 
 ## Drawbacks
-- No way cannot log out because username and password sent with any request
+- Cannot log out because username and password sent with any request
