@@ -1,37 +1,33 @@
 package com.example.spikespringsecurity.student;
 
+import lombok.RequiredArgsConstructor;
 import org.springframework.web.bind.annotation.*;
 
-import java.nio.file.Path;
-import java.util.Arrays;
 import java.util.List;
 
 @RestController
 @RequestMapping("management/v1/students")
+@RequiredArgsConstructor
 public class StudentManagementController {
-  private List<Student> students = Arrays.asList(
-      Student.builder().studentId(1).studentName("James").build(),
-      Student.builder().studentId(2).studentName("Maria").build(),
-      Student.builder().studentId(3).studentName("Anna").build()
-  );
+  private final StudentRepository studentRepository;
 
   @GetMapping
   public List<Student> getAllStudents() {
-    return students;
+    return studentRepository.findAll();
   }
 
   @PostMapping
   public void registerNewStudent(@RequestBody Student student) {
-    System.out.println(student);
+    studentRepository.save(student);
   }
 
   @DeleteMapping(path = "{studentId}")
   public void deleteStudent(@PathVariable Integer studentId) {
-    System.out.println(studentId);
+    studentRepository.deleteById(studentId);
   }
 
   @PutMapping(path = "{studentId}")
   public void updateStudent(@PathVariable Integer studentId, @RequestBody Student student) {
-    System.out.println(String.format("%s %s", studentId, student));
+    studentRepository.save(student);
   }
 }

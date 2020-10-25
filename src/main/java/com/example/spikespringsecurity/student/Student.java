@@ -4,10 +4,14 @@ import lombok.Builder;
 import lombok.Data;
 import lombok.RequiredArgsConstructor;
 
+import javax.persistence.Entity;
+import javax.persistence.Id;
+
+@Entity
 @Data
-@Builder
 @RequiredArgsConstructor
 public class Student {
-  private final Integer studentId;
-  private final String studentName;
+  @Id
+  private Integer studentId;
+  private String studentName;
 }
