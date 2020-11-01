@@ -1,6 +1,5 @@
 package com.example.spikespringsecurity.student;
 
-import lombok.Builder;
 import lombok.Data;
 import lombok.RequiredArgsConstructor;
 

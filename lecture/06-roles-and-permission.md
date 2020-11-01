@@ -106,7 +106,7 @@ public class ApplicationSecurityConfig  extends WebSecurityConfigurerAdapter {
   private final PasswordEncoder passwordEncoder;
   
   @Override
-  protected void configure(HttpSecurity http) throws Exception {
+  protected void configure(HttpSecurity http)  {
     http.authorizeRequests()
         .antMatchers("/", "index", "/css/*", "/js/*").permitAll()
 // Allow only *STUDENT* for this endpoint
@@ -151,6 +151,33 @@ public class ApplicationSecurityConfig  extends WebSecurityConfigurerAdapter {
         .build();
 
     return new InMemoryUserDetailsManager(tom);
+  }
+}
+```
+
+```java
+@Configuration
+@EnableWebSecurity
+@RequiredArgsConstructor
+public class ApplicationSecurityConfig  extends WebSecurityConfigurerAdapter {
+  private final PasswordEncoder passwordEncoder;
+
+  @Override
+  protected void configure(HttpSecurity http)  {
+    http
+    // disable csrf
+        .csrf().disable()
+        .authorizeRequests()
+        .antMatchers("/", "index", "/css/*", "/js/*").permitAll()
+    // Limit for access to some permission
+        .antMatchers(HttpMethod.DELETE,"management/api/**").hasAuthority(COURSE_WRITE.name())
+        .antMatchers(HttpMethod.POST,"management/api/**").hasAuthority(COURSE_WRITE.name())
+        .antMatchers(HttpMethod.PUT,"management/api/**").hasAuthority(COURSE_WRITE.name())
+       .antMatchers(HttpMethod.GET,"management/api/**").hasAnyRole(ADMIN.name(), ADMINTRAINEE.name())
+        .anyRequest()
+        .authenticated()
+        .and()
+        .httpBasic();
   }
 }
 ```
